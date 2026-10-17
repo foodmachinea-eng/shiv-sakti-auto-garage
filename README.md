@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Garage website with online booking and admin panel
 
 A complete website for a multi-vehicle garage (cars, bikes, scooters, auto-rickshaws and commercial vehicles), with online service booking, enquiries and an admin panel for the owner.
@@ -331,3 +332,6 @@ Other brand files:
 | Photos don't show (grey placeholders) | The browser or network is blocking `images.unsplash.com`. Upload your own photos in the admin panel. |
 | Local demo behaves oddly after many test edits | Stop the server, run `npm run db:reset-demo`, then start it again. |
 | Port 3000 is already in use | `npm run dev -- -p 3001` |
+=======
+# shiv-shkti-auto
+>>>>>>> 222c1ec84863d187ede9b91c72dc118080bf27db
