@@ -1,0 +1,90 @@
+import { cn } from "@/lib/format";
+
+/**
+ * Gear-and-wrench mark. The gear is knocked out around the wrench so the mark
+ * works on dark and light backgrounds.
+ */
+export function LogoMark({
+  className,
+  wrenchColor = "currentColor",
+  gearColor = "var(--accent)",
+  title,
+}: {
+  className?: string;
+  wrenchColor?: string;
+  gearColor?: string;
+  title?: string;
+}) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      className={className}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : true}
+      aria-label={title}
+    >
+      <path d={GEAR_PATH} fill={gearColor} fillRule="evenodd" />
+      <path d={WRENCH_PATH} fill={wrenchColor} fillRule="evenodd" />
+    </svg>
+  );
+}
+
+/** Logo lock-up: mark + garage name. Replace with an uploaded logo in Admin → Content & settings → Branding & SEO. */
+export function Logo({
+  name,
+  logoUrl,
+  tone = "light",
+  className,
+  compact = false,
+}: {
+  name: string;
+  logoUrl?: string;
+  tone?: "light" | "dark";
+  className?: string;
+  compact?: boolean;
+}) {
+  if (logoUrl) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element -- uploaded logo of unknown size
+      <img src={logoUrl} alt={name} className={cn("h-10 w-auto max-w-[200px] object-contain", className)} />
+    );
+  }
+  const [first, ...rest] = name.split(" ");
+  const second = rest.join(" ");
+  return (
+    <span className={cn("inline-flex items-center gap-2.5", className)}>
+      <LogoMark
+        className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
+        wrenchColor={tone === "light" ? "#ffffff" : "#16171a"}
+      />
+      {!compact && (
+        <span className="flex flex-col leading-none">
+          <span
+            className={cn(
+              "font-display text-[1.32rem] font-extrabold uppercase tracking-[0.02em]",
+              tone === "light" ? "text-white" : "text-charcoal",
+            )}
+            style={{ fontStretch: "78%" }}
+          >
+            {first}
+          </span>
+          {second && (
+            <span
+              className={cn(
+                "mt-0.5 font-display text-[0.7rem] font-semibold uppercase tracking-[0.28em]",
+                tone === "light" ? "text-fog" : "text-slate",
+              )}
+            >
+              {second}
+            </span>
+          )}
+        </span>
+      )}
+    </span>
+  );
+}
+
+const GEAR_PATH =
+  "M23.96 9.92L22.07 10.70L20.25 11.65L15.50 7.54L7.54 15.50L11.65 20.25L10.29 23.01L9.30 25.92L3.04 26.37L3.04 37.63L9.30 38.08L10.29 40.99L11.59 43.64L19.14 36.09L18.70 34.31L18.52 32.66L18.54 31.01L18.76 29.37L19.18 27.77L19.80 26.23L20.59 24.78L21.56 23.44L22.69 22.22L23.96 21.16L25.35 20.25L26.53 19.66L28.08 19.08L29.69 18.70L31.34 18.52L32.69 18.52L32.75 16.96L33.00 15.37L33.36 14.07L33.96 12.58L34.74 11.18L35.68 9.88L36.78 8.70L37.97 7.70L37.63 3.04L26.37 3.04L25.92 9.30ZM7.54 48.50L7.67 48.62L7.83 48.17ZM15.50 56.46L15.83 56.17L15.38 56.33ZM20.36 52.41L23.01 53.71L25.92 54.70L26.37 60.96L37.63 60.96L38.08 54.70L40.99 53.71L43.75 52.35L48.50 56.46L56.46 48.50L52.35 43.75L53.71 40.99L54.70 38.08L60.96 37.63L60.96 26.37L56.30 26.03L55.30 27.22L54.12 28.32L52.82 29.26L51.42 30.04L49.93 30.64L48.63 31.00L47.04 31.25L45.48 31.31L45.48 32.66L45.30 34.31L45.01 35.60L44.47 37.17L43.75 38.65L43.04 39.77L42.22 40.82L41.07 42.00L39.50 43.22L38.07 44.06L36.55 44.71L34.96 45.17L33.32 45.43L31.34 45.48L29.69 45.30L27.91 44.86Z";
+const WRENCH_PATH =
+  "M53.57 25.26L54.52 24.04L55.28 22.70L55.84 21.26L56.13 20.01L56.29 18.47L56.24 17.18L55.97 15.66L55.56 14.38L48.29 21.58L47.40 22.09L46.40 22.37L45.58 22.41L44.57 22.23L43.81 21.92L43.12 21.46L42.54 20.88L42.08 20.19L41.71 19.23L41.59 18.42L41.63 17.60L41.83 16.80L42.19 16.05L42.68 15.39L49.62 8.44L48.59 8.09L47.33 7.83L46.05 7.71L44.76 7.76L43.74 7.91L42.49 8.24L41.30 8.72L40.17 9.34L38.74 10.43L38.01 11.16L37.35 11.96L36.41 13.49L35.74 15.16L35.49 16.16L35.34 17.18L35.32 18.98L35.60 20.76L36.27 22.64L10.95 47.97L10.53 48.53L10.29 49.01L10.03 50.03L10.08 51.09L10.29 51.76L10.53 52.24L11.07 52.93L11.62 53.38L12.24 53.71L12.91 53.92L13.79 53.98L14.49 53.88L15.31 53.56L15.90 53.17L41.36 27.73L42.99 28.33L44.50 28.63L46.05 28.71L47.84 28.51L49.57 28.01L50.96 27.35L52.45 26.33Z";

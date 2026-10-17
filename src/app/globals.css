@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Fonts (self-hosted, OFL) ───────────────────────── */
+@font-face {
+  font-family: "Saira";
+  src: url("/fonts/saira-latin.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-stretch: 50% 125%;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Saira";
+  src: url("/fonts/saira-latin-ext.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-stretch: 50% 125%;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF,
+    U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/plex-sans-latin.woff2") format("woff2-variations");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308,
+    U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/plex-sans-latin-ext.woff2") format("woff2-variations");
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF,
+    U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/plex-sans-latin-italic.woff2") format("woff2-variations");
+  font-weight: 100 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ───────────────────────── Design tokens ───────────────────────── */
+:root {
+  /* Defaults; the accent chosen in Admin → Content & settings → Branding overrides these (components/brand-style.tsx). */
+  --accent: #d90a0a;
+  --accent-strong: #b30707;
+  --accent-bright: #ff3b30;
+  color-scheme: light;
+}
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Saira", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #000000;
+  --color-charcoal: #16171a;
+  --color-charcoal-2: #1d1e22;
+  --color-gunmetal: #26282d;
+  --color-graphite: #3a3d44;
+  --color-steel: #8a909a;
+  --color-fog: #a0a6af;
+  --color-mist: #c9cdd3;
+  --color-slate: #5b616b;
+  --color-line: #dcdee2;
+  --color-concrete: #edeef0;
+  --color-paper: #f6f7f8;
+  --color-whatsapp: #0f7a43;
+  --color-plate-blue: #1f4aa8;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-quint) both;
+  --animate-settle: settle 2.2s var(--ease-out-quint) both;
+  --animate-stamp: stamp 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-slide-up: slide-up 0.35s var(--ease-out-quint) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes settle {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes stamp {
+    0% {
+      opacity: 0;
+      transform: scale(1.7) rotate(-16deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(-8deg);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-bright: var(--accent-bright);
+}
+
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 96px;
+  }
+  body {
+    @apply bg-white font-sans text-charcoal antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  ::selection {
+    background: var(--accent);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .on-dark :focus-visible {
+    outline-color: #fff;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  /* Fieldsets default to min-content width, which lets wide children (like the date row) push the page sideways. */
+  fieldset {
+    min-width: 0;
+  }
+}
+
+/* ───────────────────────── Typography utilities ───────────────────────── */
+@utility display-hero {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 72%;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  font-size: clamp(2.9rem, 9.4vw, 6.75rem);
+}
+@utility display-1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 75%;
+  line-height: 0.98;
+  letter-spacing: -0.005em;
+  font-size: clamp(2.35rem, 5.6vw, 4.25rem);
+}
+@utility display-2 {
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-stretch: 78%;
+  line-height: 1.02;
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+}
+@utility display-3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 85%;
+  line-height: 1.12;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+}
+@utility title-sm {
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-stretch: 90%;
+  line-height: 1.2;
+  font-size: 1.15rem;
+}
+@utility numerals {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-stretch: 85%;
+}
+@utility container-site {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+@utility prose-copy {
+  max-width: 68ch;
+  & p + p {
+    margin-top: 1em;
+  }
+}
+
+/* ───────────────────────── Components ───────────────────────── */
+@layer components {
+  /* Indian HSRP-style number plate (booking form + job card) */
+  .plate {
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    color: #000;
+    border: 2px solid #111;
+    border-radius: 7px;
+    box-shadow:
+      inset 0 0 0 2px #fff,
+      inset 0 0 0 3px #111;
+    overflow: hidden;
+  }
+  .plate-ind {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+    min-width: 30px;
+    padding: 6px 4px 7px;
+    background: var(--color-plate-blue);
+    color: #fff;
+    font: 700 10px/1 var(--font-sans);
+    letter-spacing: 0.04em;
+  }
+  .plate-text {
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-stretch: 82%;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  /* Perforated top edge for the job card */
+  .perforated {
+    --hole: 7px;
+    -webkit-mask:
+      radial-gradient(circle at 50% 0, transparent var(--hole), #000 calc(var(--hole) + 0.5px)) 0 0 / 22px 100%
+        repeat-x;
+    mask:
+      radial-gradient(circle at 50% 0, transparent var(--hole), #000 calc(var(--hole) + 0.5px)) 0 0 / 22px 100%
+        repeat-x;
+  }
+
+  .photo-tone {
+    filter: saturate(0.88) contrast(1.04);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

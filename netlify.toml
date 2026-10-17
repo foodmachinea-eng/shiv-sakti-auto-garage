@@ -1,0 +1,12 @@
+# Netlify build settings.
+# Netlify detects Next.js and deploys it with its Next.js runtime automatically.
+# `build:deploy` first prepares the database (migrations, starting content and
+# the first admin account), then runs `next build`. Without DATABASE_URL it
+# skips the database step and the site runs in demo mode.
+
+[build]
+  command = "npm run build:deploy"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"

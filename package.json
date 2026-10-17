@@ -1,0 +1,50 @@
+{
+  "name": "garage-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "db:setup": "tsx scripts/db-setup.ts",
+    "db:generate": "drizzle-kit generate && tsx scripts/embed-migrations.ts",
+    "db:reset-demo": "tsx scripts/reset-demo.ts",
+    "admin:create": "tsx scripts/create-admin.ts",
+    "build:deploy": "npm run db:setup && npm run build"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.9",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.4",
+    "jose": "^6.2.12",
+    "lucide-react": "^1.57.0",
+    "next": "16.3.8",
+    "pg": "^8.23.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1",
+    "sonner": "^2.0.8",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@next/env": "^16.3.8",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  },
+  "description": "Multi-vehicle garage website with online bookings and an admin panel (Next.js, PostgreSQL/Neon).",
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
